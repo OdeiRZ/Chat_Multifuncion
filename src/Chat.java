@@ -112,4 +112,56 @@ public class Chat {
         }           
     }
     
+    /**
+     * Método usado para simular la lógica del Servidor.
+     * 
+     * @param usuario String: usuario validado
+     */
+    public static void lanzarServidor(String usuario) {
+        try {
+            boolean sw = true;
+            boolean sw2 = false;
+            String entrada, salida, usuarioAux = "";
+            
+            ServerSocket skServidor = new ServerSocket(Puerto);                 // Publicamos Servidor por el puerto establecido
+            System.out.println("Escuchando puerto " + Puerto);
+            
+            while (sw) {
+                try (Socket sCliente = skServidor.accept()) {                   // Nos mantenemos a la espera de peticiones de clientes
+                    if (!sw2) {                                                 // Si es la primera vez que entramos
+                        sw2 = !sw2;
+                        InputStream is = sCliente.getInputStream();
+                        DataInputStream flujo_entrada = new DataInputStream(is);
+                        usuarioAux = flujo_entrada.readUTF();                   // Recibimos el nombre del cliente
+                        System.out.println("Cliente conectado: " + usuarioAux);
+                        
+                        OutputStream os = sCliente.getOutputStream();
+                        DataOutputStream flujo_salida = new DataOutputStream(os);
+                        flujo_salida.writeUTF(usuario);                         // y le mandamos el nuestro
+                    } else {                                                    // En caso contrario
+                        InputStream is = sCliente.getInputStream();
+                        DataInputStream flujo_entrada = new DataInputStream(is);
+                        entrada = flujo_entrada.readUTF();                      // Obtenemos ebtrada recibida del cliente
+                        System.out.println(usuarioAux + " >> " + entrada);      // y la mostramos
+                        
+                        if (entrada.equals("EXIT")) {
+                            sw = false;
+                        } else {
+                            System.out.print(usuario + " >> ");
+                            salida = br.readLine();                             // Capturamos salida a enviar al cliete
+                            OutputStream os = sCliente.getOutputStream();
+                            DataOutputStream flujo_salida = new DataOutputStream(os);
+                            flujo_salida.writeUTF(salida);                      // y se la mandamos
+                            if (salida.equals("EXIT")) {
+                                sw = false;                                     // Repetimos el proceso mientras las instrucciones no sean EXIT
+                            } 
+                        }
+                    }
+                }
+            }
+        } catch(IOException e) {
+            System.out.println(e.getMessage());                                 // Si se produce un error mostramos dicho error
+        }
+    }
+
 }
