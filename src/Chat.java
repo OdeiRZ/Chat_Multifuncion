@@ -32,4 +32,34 @@ public class Chat {
     protected static BufferedReader br = 
             new BufferedReader(new InputStreamReader(System.in));
     
+    /**
+     * Lanza una instancia de la aplicación donde validaremos en primer lugar
+     * el usuario introducido por teclado y .
+     * 
+     * @param args String[]: argumentos de la línea de comandos,
+     * en primer lugar obtenemos el HOST y en segundo el Puerto de Conexón,
+     * si no son introducidos usamos los asignados por defecto
+     * @throws java.io.IOException posible excepción de entrada
+     */
+    public static void main(String[] args) throws IOException {
+        String usuario;
+        boolean valido;
+        
+        if (args.length == 2) {                                                 // Comprobamos si recibimos como parámetros el HOST y Puerto de la línea de comandos
+            HOST = args[0];                                                     // y sobrescribimos los valores por defecto de los mismos si se da el caso
+            Puerto = Integer.parseInt(args[1]);
+        }
+        
+        do {
+            System.out.print("Introduce tu Usuario: ");
+            usuario = br.readLine();                                            // Capturamos usuario 
+            valido = comprobarUsuario(usuario);                                 // mientras que no sea valido
+            if (!valido) {
+                System.out.println("El Usuario no es Válido");
+            }
+        } while(!valido);
+        
+        lanzarCliente(usuario);                                                 // Una vez validado el usuario lanzamos el cliente
+    }
+
 }
