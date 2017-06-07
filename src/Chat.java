@@ -62,4 +62,54 @@ public class Chat {
         lanzarCliente(usuario);                                                 // Una vez validado el usuario lanzamos el cliente
     }
 
+    /**
+     * Método usado para simular la lógica del Cliente.
+     * 
+     * @param usuario String: usuario validado
+     */
+    protected static void lanzarCliente(String usuario) {
+        try{
+            boolean sw = true;
+            boolean sw2 = false;
+            String entrada, salida, usuarioAux = "";
+            
+            while (sw) {
+                try (Socket sCliente = new Socket(HOST, Puerto)) {              // Intentamos conectar al Servidor
+                    if (!sw2) {                                                 // Si es la primera vez que entramos
+                        sw2 = !sw2;
+                        OutputStream os = sCliente.getOutputStream();           // Mandamos al Servidor el nombre del cliente
+                        DataOutputStream flujo_salida = new DataOutputStream(os);
+                        flujo_salida.writeUTF(usuario);
+                        
+                        InputStream is = sCliente.getInputStream();             // y recibimos el del servidor
+                        DataInputStream flujo_entrada = new DataInputStream(is);
+                        usuarioAux = flujo_entrada.readUTF();
+                        System.out.println("Servidor conectado: " + usuarioAux);
+                    } else {                                                    // En caso contrario
+                        System.out.print(usuario + " >> ");
+                        salida = br.readLine();                                 // Capturamos salida a enviar al servidor
+                        OutputStream os = sCliente.getOutputStream();
+                        DataOutputStream flujo_salida = new DataOutputStream(os);
+                        flujo_salida.writeUTF(salida);                          // y se la mandamos
+                        
+                        if (salida.equals("EXIT")) {
+                            sw = false;
+                        } else {
+                            InputStream is = sCliente.getInputStream();
+                            DataInputStream flujo_entrada = new DataInputStream(is);
+                            entrada = flujo_entrada.readUTF();                  // Obtenemos la entrada recibida del servidor
+                            System.out.println(usuarioAux + " >> " + entrada);  // y la mostramos
+                            if (entrada.equals("EXIT")) {
+                                sw = false;                                     // Repetimos el proceso mientras las instrucciones no sean EXIT
+                            }
+                        }
+                    }
+                }
+            }
+        } catch(IOException e) {
+            System.out.println(e.getMessage());                                 // Si se produce un error mostramos dicho error
+            lanzarServidor(usuario);                                            // Y lanzamos el Servidor mandandole el nombre de usuario
+        }           
+    }
+    
 }
