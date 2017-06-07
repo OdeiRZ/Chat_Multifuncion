@@ -163,5 +163,18 @@ public class Chat {
             System.out.println(e.getMessage());                                 // Si se produce un error mostramos dicho error
         }
     }
-
+    
+    /**
+     * Método usado para validar el usuario recibido como parámetro.
+     * 
+     * @param usuario String: usuario a validar
+     * @return boolean: resultado de la validación del usuario
+     */
+    protected static boolean comprobarUsuario(String usuario) {
+        boolean sw = false;
+        if (Pattern.compile("^[a-z0-9_]{3,8}$").matcher(usuario).find()) {      // Si la expresión regular valida al usuario
+            sw = true;                                                          // activamos la variable sw
+        }
+        return sw;
+    }
 }
