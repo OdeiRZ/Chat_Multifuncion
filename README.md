@@ -1,25 +1,25 @@
-Chat Multifunción 0.9
+Chat MultifunciÃ³n 0.9
 ================================
 
-Aplicación desarrollada en Java que implementa un chat en línea de comando con funciones de servidor
+AplicaciÃ³n desarrollada en Java que implementa un chat en lÃ­nea de comando con funciones de servidor
 y cliente. El programa nos permite enviar y recibir mensajes entre un cliente y un servidor haciendo 
-uso de diversos métodos de la clase Socket.
+uso de diversos mÃ©todos de la clase Socket.
 
-La aplicación detecta si es la primera vez que se ejecuta e implementa las funcionalidades adecuadas 
-para gestionar a los clientes conectados, un segundo usuario conectado podrá comunicarse con el primero
-y viceversa, permitiendo únicamente una comunicación entre estos dos.
+La aplicaciÃ³n detecta si es la primera vez que se ejecuta e implementa las funcionalidades adecuadas 
+para gestionar a los clientes conectados, un segundo usuario conectado podrÃ¡ comunicarse con el primero
+y viceversa, permitiendo Ãºnicamente una comunicaciÃ³n entre estos dos.
 
 ## Requisitos
-- [Java] 7 o superior (para ejecutar la Aplicación)
+- [Java] 7 o superior (para ejecutar la AplicaciÃ³n)
 
 ## Entorno de desarrollo
-La Aplicación ha sido desarrollada utilizando el IDE [NetBeans] pero también es posible su importanción 
-en [Eclipe] y demás IDE's.
+La aplicaciÃ³n ha sido desarrollada utilizando el IDE [NetBeans] pero tambiÃ©n es posible su importanciÃ³n 
+en [Eclipe] y demÃ¡s IDE's.
 
 ## Licencia
-Esta aplicación se ofrece bajo licencia [GPL versión 3].
+Esta aplicaciÃ³n se ofrece bajo licencia [GPL versiÃ³n 3].
 
-[GPL versión 3]: https://www.gnu.org/licenses/gpl-3.0.en.html
+[GPL versiÃ³n 3]: https://www.gnu.org/licenses/gpl-3.0.en.html
 [NetBeans]: https://netbeans.org/
 [Eclipe]: https://eclipse.org/
 [Java]: https://www.java.com/
